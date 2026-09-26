@@ -112,6 +112,23 @@
   }
   small.note { color: var(--muted); display: block; margin-top: 4px; }
 
+  nav.site-nav {
+    background: var(--primary);
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    padding: 10px 16px;
+    flex-wrap: wrap;
+  }
+  nav.site-nav a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 0.9rem;
+    opacity: 0.9;
+  }
+  nav.site-nav a:hover, nav.site-nav a.active { opacity: 1; text-decoration: underline; }
+  footer a { color: var(--muted); }
+
   .mode-toggle { display: flex; gap: 8px; margin-bottom: 18px; }
   .mode-toggle button {
     flex: 1;
@@ -187,6 +204,12 @@
   <h1>Reynolds Number Calculator</h1>
   <p>Get Re, flow regime, and full step-by-step working — plus 3 solved practice problems</p>
 </header>
+<nav class="site-nav">
+  <a href="index.html" class="active">Home</a>
+  <a href="about.html">About</a>
+  <a href="privacy.html">Privacy Policy</a>
+  <a href="contact.html">Contact</a>
+</nav>
 
 <main>
 
@@ -301,7 +324,7 @@
 </main>
 
 <footer>
-  Built with plain HTML/CSS/JS. No tracking, no signup.
+  Built with plain HTML/CSS/JS. No tracking, no signup. · <a href="about.html">About</a> · <a href="privacy.html">Privacy</a> · <a href="contact.html">Contact</a>
 </footer>
 
 <script>
