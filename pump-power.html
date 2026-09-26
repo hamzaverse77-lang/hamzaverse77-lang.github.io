@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pump Power Calculator with Steps - Hydraulic & Brake Power, Solved Examples</title>
+<meta name="description" content="Free pump power calculator with full step-by-step working for hydraulic and brake power, using head or pressure rise. Includes solved practice examples and FAQ.">
+<meta name="keywords" content="pump power calculator, pump power calculator with steps, hydraulic power calculator, brake power calculator, centrifugal pump power, chemical engineering calculator">
+<style>
+  :root {
+    --bg: #f4f6f8;
+    --card: #ffffff;
+    --primary: #1a5f7a;
+    --primary-dark: #133c4d;
+    --text: #222;
+    --muted: #667;
+    --laminar: #2e7d32;
+    --transitional: #f9a825;
+    --turbulent: #c62828;
+    --border: #dde3e8;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+  }
+  header {
+    background: var(--primary-dark);
+    color: #fff;
+    padding: 24px 16px;
+    text-align: center;
+  }
+  header h1 { margin: 0 0 6px 0; font-size: 1.6rem; }
+  header p { margin: 0; opacity: 0.85; font-size: 0.95rem; }
+  main {
+    max-width: 760px;
+    margin: 24px auto;
+    padding: 0 16px;
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 24px;
+    margin-bottom: 24px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  }
+  .field {
+    margin-bottom: 16px;
+  }
+  label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 4px;
+    font-size: 0.92rem;
+  }
+  .field input, .field select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 1rem;
+  }
+  .row {
+    display: flex;
+    gap: 12px;
+  }
+  .row .field { flex: 1; }
+  button {
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+  }
+  button:hover { background: var(--primary-dark); }
+  #result {
+    margin-top: 20px;
+    padding: 16px;
+    border-radius: 8px;
+    display: none;
+  }
+  #result.show { display: block; }
+  #reValue {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin: 4px 0;
+  }
+  .regime-laminar { background: #e8f5e9; border: 1px solid var(--laminar); }
+  .regime-transitional { background: #fff8e1; border: 1px solid var(--transitional); }
+  .regime-turbulent { background: #ffebee; border: 1px solid var(--turbulent); }
+  .regime-laminar #regimeLabel { color: var(--laminar); }
+  .regime-transitional #regimeLabel { color: var(--transitional); }
+  .regime-turbulent #regimeLabel { color: var(--turbulent); }
+  #regimeLabel { font-weight: 700; font-size: 1.1rem; }
+  article h2 { color: var(--primary-dark); font-size: 1.25rem; margin-top: 0; }
+  article table { width: 100%; border-collapse: collapse; margin: 12px 0; }
+  article th, article td { text-align: left; padding: 8px; border-bottom: 1px solid var(--border); font-size: 0.92rem; }
+  code { background: #eef2f4; padding: 2px 6px; border-radius: 4px; font-size: 0.9rem; }
+  footer {
+    text-align: center;
+    padding: 24px 16px;
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
+  small.note { color: var(--muted); display: block; margin-top: 4px; }
+
+  nav.site-nav {
+    background: var(--primary);
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    padding: 10px 16px;
+    flex-wrap: wrap;
+  }
+  nav.site-nav a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 0.9rem;
+    opacity: 0.9;
+  }
+  nav.site-nav a:hover, nav.site-nav a.active { opacity: 1; text-decoration: underline; }
+  footer a { color: var(--muted); }
+
+  .mode-toggle { display: flex; gap: 8px; margin-bottom: 18px; }
+  .mode-toggle button {
+    flex: 1;
+    background: #eef2f4;
+    color: var(--text);
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 10px;
+  }
+  .mode-toggle button.active { background: var(--primary); color: #fff; }
+  .mode-toggle button:hover { background: var(--primary-dark); color: #fff; }
+
+  #workingBox {
+    margin-top: 16px;
+    padding: 16px;
+    background: #f8fafb;
+    border: 1px dashed var(--border);
+    border-radius: 8px;
+    font-family: "SFMono-Regular", Consolas, Menlo, monospace;
+    font-size: 0.92rem;
+    display: none;
+    white-space: pre-line;
+  }
+  #workingBox.show { display: block; }
+  #workingBox .step-label { color: var(--muted); font-family: -apple-system, sans-serif; font-weight: 600; margin-top: 8px; }
+  #workingBox .step-label:first-child { margin-top: 0; }
+
+  .copy-btn {
+    background: transparent;
+    border: 1px solid var(--primary);
+    color: var(--primary);
+    width: auto;
+    padding: 8px 14px;
+    font-size: 0.85rem;
+    margin-top: 12px;
+  }
+  .copy-btn:hover { background: var(--primary); color: #fff; }
+
+  .example-card {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 14px;
+    background: #fafcfd;
+  }
+  .example-card h3 { margin: 0 0 6px 0; font-size: 1rem; color: var(--primary-dark); }
+  .example-card p { margin: 4px 0; font-size: 0.92rem; }
+  .try-btn {
+    width: auto;
+    padding: 8px 16px;
+    font-size: 0.85rem;
+    margin-top: 8px;
+    background: var(--primary-dark);
+  }
+
+  details.faq {
+    border-bottom: 1px solid var(--border);
+    padding: 12px 0;
+  }
+  details.faq:last-child { border-bottom: none; }
+  details.faq summary {
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 0.98rem;
+    color: var(--primary-dark);
+  }
+  details.faq p { margin: 10px 0 0 0; font-size: 0.92rem; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Pump Power Calculator</h1>
+  <p>Hydraulic and brake power for centrifugal pumps, with full step-by-step working</p>
+</header>
+<nav class="site-nav">
+  <a href="index.html">Reynolds Calculator</a>
+  <a href="lmtd.html">LMTD Calculator</a>
+  <a href="pump-power.html" class="active">Pump Power Calculator</a>
+  <a href="about.html">About</a>
+  <a href="privacy.html">Privacy Policy</a>
+  <a href="contact.html">Contact</a>
+</nav>
+
+<main>
+
+  <section class="card" id="calcCard">
+    <div class="mode-toggle">
+      <button id="headBtn" class="active" onclick="setMode('head')" type="button">Using Head (H)</button>
+      <button id="pressureBtn" onclick="setMode('pressure')" type="button">Using Pressure Rise (ΔP)</button>
+    </div>
+
+    <div class="row">
+      <div class="field">
+        <label for="flowRate">Flow Rate (Q)</label>
+        <input type="number" id="flowRate" step="any" placeholder="e.g. 50">
+        <small class="note">m³/h</small>
+      </div>
+      <div class="field" id="densityField">
+        <label for="density">Fluid Density (ρ)</label>
+        <input type="number" id="density" step="any" placeholder="e.g. 1000">
+        <small class="note">kg/m³</small>
+      </div>
+    </div>
+    <div class="row">
+      <div class="field" id="secondField">
+        <label for="head">Total Head (H)</label>
+        <input type="number" id="head" step="any" placeholder="e.g. 30">
+        <small class="note">m</small>
+      </div>
+      <div class="field">
+        <label for="efficiency">Pump Efficiency (η)</label>
+        <input type="number" id="efficiency" step="any" placeholder="e.g. 75">
+        <small class="note">%</small>
+      </div>
+    </div>
+
+    <button onclick="calculate()">Calculate Pump Power</button>
+
+    <div id="result">
+      <div>Brake (Shaft) Power:</div>
+      <div id="reValue">--</div>
+      <div id="regimeLabel">--</div>
+      <button class="copy-btn" onclick="copyResult()" type="button">📋 Copy Result</button>
+    </div>
+
+    <div id="workingBox"></div>
+  </section>
+
+  <article class="card">
+    <h2>What is Pump Power?</h2>
+    <p>Pump power is the rate of energy a pump must deliver to move a fluid against gravity (head) or pressure. There are two figures that matter:</p>
+    <ul>
+      <li><strong>Hydraulic power (Ph)</strong> — the actual work done on the fluid.</li>
+      <li><strong>Brake (shaft) power (Pb)</strong> — the mechanical power the motor must supply, always higher than hydraulic power because no pump is 100% efficient.</li>
+    </ul>
+    <p><code>Pb = Ph / η</code></p>
+
+    <h2>Formulas Used</h2>
+    <table>
+      <tr><th>Mode</th><th>Hydraulic Power Formula</th></tr>
+      <tr><td>Using head (H)</td><td>Ph (kW) = (ρ × g × Q × H) / 3,600,000</td></tr>
+      <tr><td>Using pressure rise (ΔP)</td><td>Ph (kW) = (Q × ΔP) / 3600</td></tr>
+    </table>
+    <p>where ρ is density (kg/m³), g = 9.81 m/s², Q is flow rate (m³/h), H is total head (m), and ΔP is pressure rise (kPa).</p>
+
+    <h2>Why It Matters</h2>
+    <p>Undersizing the motor against brake power (not hydraulic power) is a common beginner mistake — the motor must be rated for the higher brake power figure, with a safety margin, or it will overload and trip under real operating conditions.</p>
+  </article>
+
+  <article class="card">
+    <h2>Solved Examples (Practice Problems)</h2>
+    <p>Click "Try This Example" to auto-fill the calculator above and see the full step-by-step working.</p>
+
+    <div class="example-card">
+      <h3>Example 1 — Water pump, using head</h3>
+      <p>A centrifugal pump moves water (ρ = 1000 kg/m³) at 50 m³/h against a total head of 30 m, at 75% efficiency. Find the hydraulic and brake power.</p>
+      <button class="try-btn" type="button" onclick="loadExample('head',50,1000,30,75)">Try This Example</button>
+    </div>
+
+    <div class="example-card">
+      <h3>Example 2 — Pump sized from a pressure rise</h3>
+      <p>A pump must deliver 20 m³/h of fluid with a pressure rise of 250 kPa across it, at 70% efficiency. Find the hydraulic and brake power.</p>
+      <button class="try-btn" type="button" onclick="loadExample('pressure',20,null,250,70)">Try This Example</button>
+    </div>
+
+    <div class="example-card">
+      <h3>Example 3 — Viscous oil, using head</h3>
+      <p>An oil transfer pump moves oil (ρ = 850 kg/m³) at 200 m³/h against a total head of 80 m, at 68% efficiency. Find the hydraulic and brake power.</p>
+      <button class="try-btn" type="button" onclick="loadExample('head',200,850,80,68)">Try This Example</button>
+    </div>
+  </article>
+
+  <article class="card">
+    <h2>Frequently Asked Questions</h2>
+
+    <details class="faq">
+      <summary>What's the difference between hydraulic power and brake power?</summary>
+      <p>Hydraulic power is the useful work actually delivered to the fluid. Brake power is the mechanical power the pump shaft — and therefore the motor — must supply, which is always higher because of internal losses (friction, slip, recirculation). Motor sizing must always be based on brake power, not hydraulic power.</p>
+    </details>
+
+    <details class="faq">
+      <summary>What's a typical pump efficiency?</summary>
+      <p>Most centrifugal pumps operating near their best efficiency point fall between 60% and 85%, depending on size, design, and how close the operating point is to the pump's design flow. Small pumps and pumps running far from their design point trend toward the lower end.</p>
+    </details>
+
+    <details class="faq">
+      <summary>Why does fluid density matter so much for pump power?</summary>
+      <p>Power scales directly with density — pumping a denser fluid (like most oils vs. water) at the same flow rate and head requires proportionally more power. This is why the same pump curve can't be used across fluids without correcting for density.</p>
+    </details>
+
+    <details class="faq">
+      <summary>Should I add a safety margin to the calculated brake power?</summary>
+      <p>Yes — it's common practice to size the motor 10-20% above the calculated brake power to account for operating point variation, future capacity, and avoiding the motor running at its absolute limit continuously.</p>
+    </details>
+  </article>
+
+</main>
+
+<footer>
+  Built with plain HTML/CSS/JS. No tracking, no signup. · <a href="about.html">About</a> · <a href="privacy.html">Privacy</a> · <a href="contact.html">Contact</a>
+</footer>
+
+<script>
+let mode = 'head';
+let lastResult = null;
+
+function setMode(newMode) {
+  mode = newMode;
+  document.getElementById('headBtn').classList.toggle('active', mode === 'head');
+  document.getElementById('pressureBtn').classList.toggle('active', mode === 'pressure');
+
+  const densityField = document.getElementById('densityField');
+  const secondField = document.getElementById('secondField');
+
+  if (mode === 'pressure') {
+    densityField.style.display = 'none';
+    secondField.innerHTML = '<label for="head">Pressure Rise (ΔP)</label>' +
+      '<input type="number" id="head" step="any" placeholder="e.g. 250">' +
+      '<small class="note">kPa</small>';
+  } else {
+    densityField.style.display = 'block';
+    secondField.innerHTML = '<label for="head">Total Head (H)</label>' +
+      '<input type="number" id="head" step="any" placeholder="e.g. 30">' +
+      '<small class="note">m</small>';
+  }
+  document.getElementById('result').className = '';
+  document.getElementById('workingBox').className = '';
+}
+
+function calculate() {
+  const resultBox = document.getElementById('result');
+  const workingBox = document.getElementById('workingBox');
+
+  const Q = parseFloat(document.getElementById('flowRate').value);
+  const secondVal = parseFloat(document.getElementById('head').value);
+  const etaPercent = parseFloat(document.getElementById('efficiency').value);
+
+  if (isNaN(Q) || isNaN(secondVal) || isNaN(etaPercent) || etaPercent <= 0) {
+    resultBox.className = 'show';
+    document.getElementById('reValue').textContent = 'Please fill in all fields with valid numbers.';
+    document.getElementById('regimeLabel').textContent = '';
+    workingBox.className = '';
+    return;
+  }
+
+  const eta = etaPercent / 100;
+  let Ph, workingText;
+
+  if (mode === 'head') {
+    const rho = parseFloat(document.getElementById('density').value);
+    if (isNaN(rho)) {
+      resultBox.className = 'show';
+      document.getElementById('reValue').textContent = 'Please fill in density too.';
+      document.getElementById('regimeLabel').textContent = '';
+      workingBox.className = '';
+      return;
+    }
+    Ph = (rho * 9.81 * Q * secondVal) / 3600000;
+    workingText =
+      '<div class="step-label">Formula (head-based):</div>Ph (kW) = (ρ × g × Q × H) / 3,600,000\n\n' +
+      '<div class="step-label">Substituting values:</div>Ph = (' + rho + ' × 9.81 × ' + Q + ' × ' + secondVal + ') / 3,600,000\n\n' +
+      '<div class="step-label">Hydraulic power:</div>Ph = ' + Ph.toFixed(3) + ' kW\n\n';
+  } else {
+    Ph = (Q * secondVal) / 3600;
+    workingText =
+      '<div class="step-label">Formula (pressure-based):</div>Ph (kW) = (Q × ΔP) / 3600\n\n' +
+      '<div class="step-label">Substituting values:</div>Ph = (' + Q + ' × ' + secondVal + ') / 3600\n\n' +
+      '<div class="step-label">Hydraulic power:</div>Ph = ' + Ph.toFixed(3) + ' kW\n\n';
+  }
+
+  const Pb = Ph / eta;
+
+  workingText += '<div class="step-label">Brake (shaft) power:</div>Pb = Ph / η = ' + Ph.toFixed(3) + ' / ' + eta.toFixed(2) + ' = ' + Pb.toFixed(3) + ' kW';
+
+  document.getElementById('reValue').textContent = Pb.toLocaleString(undefined, {maximumFractionDigits: 2}) + ' kW';
+  document.getElementById('regimeLabel').textContent = 'Hydraulic power: ' + Ph.toLocaleString(undefined, {maximumFractionDigits: 2}) + ' kW';
+  resultBox.className = 'show regime-laminar';
+
+  workingBox.innerHTML = workingText;
+  workingBox.className = 'show';
+
+  lastResult = 'Brake Power = ' + Pb.toFixed(2) + ' kW (Hydraulic Power = ' + Ph.toFixed(2) + ' kW)';
+}
+
+function loadExample(exMode, Q, rho, secondVal, etaPercent) {
+  setMode(exMode);
+  document.getElementById('flowRate').value = Q;
+  if (exMode === 'head') {
+    document.getElementById('density').value = rho;
+  }
+  document.getElementById('head').value = secondVal;
+  document.getElementById('efficiency').value = etaPercent;
+  calculate();
+  document.getElementById('calcCard').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function copyResult() {
+  if (!lastResult) return;
+  navigator.clipboard.writeText(lastResult).then(() => {
+    const btn = document.querySelector('.copy-btn');
+    const original = btn.textContent;
+    btn.textContent = '✓ Copied!';
+    setTimeout(() => { btn.textContent = original; }, 1500);
+  });
+}
+</script>
+
+</body>
+</html>
