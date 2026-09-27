@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Heat Exchanger Area Calculator with Steps - Q = U × A × LMTD Solved for A</title>
+<meta name="description" content="Free heat exchanger area calculator solving A = Q / (U × LMTD), with full step-by-step working, solved examples, and FAQ. Enter LMTD directly or calculate it from temperatures.">
+<meta name="keywords" content="heat exchanger area calculator, heat exchanger sizing calculator, overall heat transfer coefficient calculator, UA LMTD calculator, chemical engineering calculator">
+<style>
+  :root {
+    --bg: #f4f6f8;
+    --card: #ffffff;
+    --primary: #1a5f7a;
+    --primary-dark: #133c4d;
+    --text: #222;
+    --muted: #667;
+    --laminar: #2e7d32;
+    --transitional: #f9a825;
+    --turbulent: #c62828;
+    --border: #dde3e8;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+  }
+  header {
+    background: var(--primary-dark);
+    color: #fff;
+    padding: 24px 16px;
+    text-align: center;
+  }
+  header h1 { margin: 0 0 6px 0; font-size: 1.6rem; }
+  header p { margin: 0; opacity: 0.85; font-size: 0.95rem; }
+  main {
+    max-width: 760px;
+    margin: 24px auto;
+    padding: 0 16px;
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 24px;
+    margin-bottom: 24px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  }
+  .field {
+    margin-bottom: 16px;
+  }
+  label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 4px;
+    font-size: 0.92rem;
+  }
+  .field input, .field select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 1rem;
+  }
+  .row {
+    display: flex;
+    gap: 12px;
+  }
+  .row .field { flex: 1; }
+  button {
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+  }
+  button:hover { background: var(--primary-dark); }
+  #result {
+    margin-top: 20px;
+    padding: 16px;
+    border-radius: 8px;
+    display: none;
+  }
+  #result.show { display: block; }
+  #reValue {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin: 4px 0;
+  }
+  .regime-laminar { background: #e8f5e9; border: 1px solid var(--laminar); }
+  .regime-transitional { background: #fff8e1; border: 1px solid var(--transitional); }
+  .regime-turbulent { background: #ffebee; border: 1px solid var(--turbulent); }
+  .regime-laminar #regimeLabel { color: var(--laminar); }
+  .regime-transitional #regimeLabel { color: var(--transitional); }
+  .regime-turbulent #regimeLabel { color: var(--turbulent); }
+  #regimeLabel { font-weight: 700; font-size: 1.1rem; }
+  article h2 { color: var(--primary-dark); font-size: 1.25rem; margin-top: 0; }
+  article table { width: 100%; border-collapse: collapse; margin: 12px 0; }
+  article th, article td { text-align: left; padding: 8px; border-bottom: 1px solid var(--border); font-size: 0.92rem; }
+  code { background: #eef2f4; padding: 2px 6px; border-radius: 4px; font-size: 0.9rem; }
+  footer {
+    text-align: center;
+    padding: 24px 16px;
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
+  small.note { color: var(--muted); display: block; margin-top: 4px; }
+
+  nav.site-nav {
+    background: var(--primary);
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    padding: 10px 16px;
+    flex-wrap: wrap;
+  }
+  nav.site-nav a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 0.9rem;
+    opacity: 0.9;
+  }
+  nav.site-nav a:hover, nav.site-nav a.active { opacity: 1; text-decoration: underline; }
+  footer a { color: var(--muted); }
+
+  .mode-toggle { display: flex; gap: 8px; margin-bottom: 18px; }
+  .mode-toggle button {
+    flex: 1;
+    background: #eef2f4;
+    color: var(--text);
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 10px;
+  }
+  .mode-toggle button.active { background: var(--primary); color: #fff; }
+  .mode-toggle button:hover { background: var(--primary-dark); color: #fff; }
+
+  #workingBox {
+    margin-top: 16px;
+    padding: 16px;
+    background: #f8fafb;
+    border: 1px dashed var(--border);
+    border-radius: 8px;
+    font-family: "SFMono-Regular", Consolas, Menlo, monospace;
+    font-size: 0.92rem;
+    display: none;
+    white-space: pre-line;
+  }
+  #workingBox.show { display: block; }
+  #workingBox .step-label { color: var(--muted); font-family: -apple-system, sans-serif; font-weight: 600; margin-top: 8px; }
+  #workingBox .step-label:first-child { margin-top: 0; }
+
+  .copy-btn {
+    background: transparent;
+    border: 1px solid var(--primary);
+    color: var(--primary);
+    width: auto;
+    padding: 8px 14px;
+    font-size: 0.85rem;
+    margin-top: 12px;
+  }
+  .copy-btn:hover { background: var(--primary); color: #fff; }
+
+  .example-card {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 14px;
+    background: #fafcfd;
+  }
+  .example-card h3 { margin: 0 0 6px 0; font-size: 1rem; color: var(--primary-dark); }
+  .example-card p { margin: 4px 0; font-size: 0.92rem; }
+  .try-btn {
+    width: auto;
+    padding: 8px 16px;
+    font-size: 0.85rem;
+    margin-top: 8px;
+    background: var(--primary-dark);
+  }
+
+  details.faq {
+    border-bottom: 1px solid var(--border);
+    padding: 12px 0;
+  }
+  details.faq:last-child { border-bottom: none; }
+  details.faq summary {
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 0.98rem;
+    color: var(--primary-dark);
+  }
+  details.faq p { margin: 10px 0 0 0; font-size: 0.92rem; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Heat Exchanger Area Calculator</h1>
+  <p>Required heat transfer area from duty, U, and LMTD — with full step-by-step working</p>
+</header>
+<nav class="site-nav">
+  <a href="index.html">Reynolds Calculator</a>
+  <a href="friction-factor.html">Friction Factor Calculator</a>
+  <a href="lmtd.html">LMTD Calculator</a>
+  <a href="heat-exchanger-area.html" class="active">Heat Exchanger Area Calculator</a>
+  <a href="pump-power.html">Pump Power Calculator</a>
+  <a href="npsh.html">NPSH Calculator</a>
+  <a href="about.html">About</a>
+  <a href="privacy.html">Privacy Policy</a>
+  <a href="contact.html">Contact</a>
+</nav>
+
+<main>
+
+  <section class="card" id="calcCard">
+    <div class="mode-toggle">
+      <button id="directBtn" class="active" onclick="setMode('direct')" type="button">I Know My LMTD</button>
+      <button id="tempBtn" onclick="setMode('temp')" type="button">Calculate LMTD from Temps</button>
+    </div>
+
+    <div class="row">
+      <div class="field">
+        <label for="duty">Heat Duty (Q)</label>
+        <input type="number" id="duty" step="any" placeholder="e.g. 500">
+        <small class="note">kW</small>
+      </div>
+      <div class="field">
+        <label for="uValue">Overall Heat Transfer Coefficient (U)</label>
+        <input type="number" id="uValue" step="any" placeholder="e.g. 850">
+        <small class="note">W/m²·K</small>
+      </div>
+    </div>
+
+    <div class="row" id="directRow">
+      <div class="field">
+        <label for="lmtdInput">LMTD</label>
+        <input type="number" id="lmtdInput" step="any" placeholder="e.g. 45">
+        <small class="note">°C</small>
+      </div>
+      <div class="field"></div>
+    </div>
+
+    <div id="tempRows" style="display:none;">
+      <div class="mode-toggle">
+        <button id="counterBtn" class="active" onclick="setFlow('counter')" type="button">Counter-Current</button>
+        <button id="coBtn" onclick="setFlow('co')" type="button">Co-Current</button>
+      </div>
+      <div class="row">
+        <div class="field">
+          <label for="thIn">Hot Inlet (Th,in)</label>
+          <input type="number" id="thIn" step="any" placeholder="e.g. 140">
+          <small class="note">°C</small>
+        </div>
+        <div class="field">
+          <label for="thOut">Hot Outlet (Th,out)</label>
+          <input type="number" id="thOut" step="any" placeholder="e.g. 95">
+          <small class="note">°C</small>
+        </div>
+      </div>
+      <div class="row">
+        <div class="field">
+          <label for="tcIn">Cold Inlet (Tc,in)</label>
+          <input type="number" id="tcIn" step="any" placeholder="e.g. 25">
+          <small class="note">°C</small>
+        </div>
+        <div class="field">
+          <label for="tcOut">Cold Outlet (Tc,out)</label>
+          <input type="number" id="tcOut" step="any" placeholder="e.g. 70">
+          <small class="note">°C</small>
+        </div>
+      </div>
+    </div>
+
+    <button onclick="calculate()">Calculate Required Area</button>
+
+    <div id="result">
+      <div>Required Heat Transfer Area:</div>
+      <div id="reValue">--</div>
+      <div id="regimeLabel">--</div>
+      <button class="copy-btn" onclick="copyResult()" type="button">📋 Copy Result</button>
+    </div>
+
+    <div id="workingBox"></div>
+  </section>
+
+  <article class="card">
+    <h2>What is This Calculating?</h2>
+    <p>The core heat exchanger sizing equation relates heat duty, area, the overall heat transfer coefficient, and LMTD:</p>
+    <p><code>Q = U × A × LMTD</code></p>
+    <p>Rearranged to solve for the required area:</p>
+    <p><code>A = Q / (U × LMTD)</code></p>
+
+    <h2>Why It Matters</h2>
+    <p>This is the final step in basic heat exchanger sizing — once you know how much heat needs to move (Q), how effectively it can transfer through the exchanger surface (U), and the driving temperature difference (LMTD), the required surface area tells you roughly how large (and how expensive) the exchanger needs to be.</p>
+    <p>This calculator assumes a pure counter-current or co-current arrangement (correction factor F = 1). For multi-pass shell-and-tube exchangers, the true area is A = Q / (U × LMTD × F), where F &lt; 1 is found from the exchanger's specific geometry.</p>
+
+    <h2>Typical U Values</h2>
+    <table>
+      <tr><th>Service</th><th>Typical U (W/m²·K)</th></tr>
+      <tr><td>Water to water</td><td>800 – 1500</td></tr>
+      <tr><td>Water to light oil</td><td>300 – 900</td></tr>
+      <tr><td>Steam condenser (water cooled)</td><td>1500 – 4000</td></tr>
+      <tr><td>Gas to gas</td><td>10 – 50</td></tr>
+    </table>
+  </article>
+
+  <article class="card">
+    <h2>Solved Examples (Practice Problems)</h2>
+    <p>Click "Try This Example" to auto-fill the calculator above and see the full step-by-step working.</p>
+
+    <div class="example-card">
+      <h3>Example 1 — Direct LMTD, water-to-water exchanger</h3>
+      <p>A water-to-water exchanger has a duty of 500 kW, U = 850 W/m²·K, and LMTD = 45°C. Find the required area.</p>
+      <button class="try-btn" type="button" onclick="loadExample('direct',500,850,45)">Try This Example</button>
+    </div>
+
+    <div class="example-card">
+      <h3>Example 2 — Direct LMTD, gas-to-liquid exchanger (low U)</h3>
+      <p>A gas cooler has a duty of 120 kW, U = 300 W/m²·K, and LMTD = 25°C. Find the required area, and notice how much larger it is than Example 1 despite lower duty — because U is lower.</p>
+      <button class="try-btn" type="button" onclick="loadExample('direct',120,300,25)">Try This Example</button>
+    </div>
+
+    <div class="example-card">
+      <h3>Example 3 — Calculating LMTD from temperatures first</h3>
+      <p>A counter-current exchanger: hot fluid 140°C → 95°C, cold fluid 25°C → 70°C, duty 300 kW, U = 600 W/m²·K. Find the required area (this is the equal-ΔT edge case — watch the working).</p>
+      <button class="try-btn" type="button" onclick="loadExample('temp',300,600,null,'counter',140,95,25,70)">Try This Example</button>
+    </div>
+  </article>
+
+  <article class="card">
+    <h2>Frequently Asked Questions</h2>
+
+    <details class="faq">
+      <summary>Where do I get the overall heat transfer coefficient (U)?</summary>
+      <p>U depends on the fluids, the exchanger type, and fouling — it's usually taken from published tables of typical values (like the one above) for a first estimate, or calculated in detail from individual film coefficients and wall/fouling resistances for final design.</p>
+    </details>
+
+    <details class="faq">
+      <summary>Why does a lower U require a much bigger exchanger?</summary>
+      <p>Because A = Q / (U × LMTD) — U sits in the denominator, so halving U doubles the required area for the same duty and LMTD. Gas-side services (low U) often need dramatically more surface area than liquid-side services for the same heat duty.</p>
+    </details>
+
+    <details class="faq">
+      <summary>Does this area include a design margin?</summary>
+      <p>No — this gives the theoretical minimum required area. Real designs typically add 10-20% margin for fouling, uncertainty in U, and future capacity, similar to the margin convention used in pump motor sizing.</p>
+    </details>
+
+    <details class="faq">
+      <summary>What if my exchanger isn't pure counter-current or co-current?</summary>
+      <p>Multi-pass shell-and-tube or cross-flow exchangers need a correction factor F (always ≤ 1) applied as A = Q / (U × LMTD × F). This calculator gives the true counter-current/co-current case; F is found separately from charts based on the exchanger's specific temperature ratios and geometry.</p>
+    </details>
+  </article>
+
+  <article class="card">
+    <h2>Related Tool</h2>
+    <p>Need to calculate LMTD on its own first? Use the <a href="lmtd.html">LMTD Calculator</a> — or just switch to "Calculate LMTD from Temps" above.</p>
+  </article>
+
+</main>
+
+<footer>
+  Built with plain HTML/CSS/JS. No tracking, no signup. · <a href="about.html">About</a> · <a href="privacy.html">Privacy</a> · <a href="contact.html">Contact</a>
+</footer>
+
+<script>
+let mode = 'direct';
+let flowType = 'counter';
+let lastResult = null;
+
+function setMode(newMode) {
+  mode = newMode;
+  document.getElementById('directBtn').classList.toggle('active', mode === 'direct');
+  document.getElementById('tempBtn').classList.toggle('active', mode === 'temp');
+  document.getElementById('directRow').style.display = (mode === 'direct') ? 'flex' : 'none';
+  document.getElementById('tempRows').style.display = (mode === 'temp') ? 'block' : 'none';
+  document.getElementById('result').className = '';
+  document.getElementById('workingBox').className = '';
+}
+
+function setFlow(type) {
+  flowType = type;
+  document.getElementById('counterBtn').classList.toggle('active', type === 'counter');
+  document.getElementById('coBtn').classList.toggle('active', type === 'co');
+}
+
+function calculate() {
+  const resultBox = document.getElementById('result');
+  const workingBox = document.getElementById('workingBox');
+
+  const Q = parseFloat(document.getElementById('duty').value);
+  const U = parseFloat(document.getElementById('uValue').value);
+
+  if (isNaN(Q) || isNaN(U) || U <= 0) {
+    resultBox.className = 'show';
+    document.getElementById('reValue').textContent = 'Please fill in duty and U.';
+    document.getElementById('regimeLabel').textContent = '';
+    workingBox.className = '';
+    return;
+  }
+
+  let lmtd, lmtdWorking = '';
+
+  if (mode === 'direct') {
+    lmtd = parseFloat(document.getElementById('lmtdInput').value);
+    if (isNaN(lmtd) || lmtd <= 0) {
+      resultBox.className = 'show';
+      document.getElementById('reValue').textContent = 'Please enter a valid LMTD.';
+      document.getElementById('regimeLabel').textContent = '';
+      workingBox.className = '';
+      return;
+    }
+    lmtdWorking = '<div class="step-label">LMTD (given):</div>' + lmtd + ' °C\n\n';
+  } else {
+    const thIn = parseFloat(document.getElementById('thIn').value);
+    const thOut = parseFloat(document.getElementById('thOut').value);
+    const tcIn = parseFloat(document.getElementById('tcIn').value);
+    const tcOut = parseFloat(document.getElementById('tcOut').value);
+    if (isNaN(thIn) || isNaN(thOut) || isNaN(tcIn) || isNaN(tcOut)) {
+      resultBox.className = 'show';
+      document.getElementById('reValue').textContent = 'Please fill in all four temperatures.';
+      document.getElementById('regimeLabel').textContent = '';
+      workingBox.className = '';
+      return;
+    }
+    let dT1, dT2;
+    if (flowType === 'counter') {
+      dT1 = thIn - tcOut;
+      dT2 = thOut - tcIn;
+    } else {
+      dT1 = thIn - tcIn;
+      dT2 = thOut - tcOut;
+    }
+    if (dT1 <= 0 || dT2 <= 0) {
+      resultBox.className = 'show regime-turbulent';
+      document.getElementById('reValue').textContent = 'Temperature cross detected';
+      document.getElementById('regimeLabel').textContent = 'Check inlet/outlet values and flow arrangement.';
+      workingBox.className = '';
+      return;
+    }
+    const nearEqual = Math.abs(dT1 - dT2) < 1e-9;
+    lmtd = nearEqual ? dT1 : (dT1 - dT2) / Math.log(dT1 / dT2);
+    lmtdWorking = '<div class="step-label">ΔT₁ and ΔT₂ (' + (flowType === 'counter' ? 'counter-current' : 'co-current') + '):</div>ΔT₁ = ' + dT1.toFixed(2) + ' °C, ΔT₂ = ' + dT2.toFixed(2) + ' °C\n\n' +
+      '<div class="step-label">LMTD:</div>' + (nearEqual ? 'ΔT₁ ≈ ΔT₂, so LMTD = ΔT₁ = ' : '(ΔT₁ − ΔT₂) / ln(ΔT₁/ΔT₂) = ') + lmtd.toFixed(2) + ' °C\n\n';
+  }
+
+  const A = (Q * 1000) / (U * lmtd);
+  const AFormatted = A.toLocaleString(undefined, {maximumFractionDigits: 3});
+
+  document.getElementById('reValue').textContent = AFormatted + ' m²';
+  document.getElementById('regimeLabel').textContent = 'Q = ' + Q + ' kW · U = ' + U + ' W/m²K · LMTD = ' + lmtd.toFixed(2) + ' °C';
+  resultBox.className = 'show regime-laminar';
+
+  const workingText = lmtdWorking +
+    '<div class="step-label">Formula:</div>A = Q / (U × LMTD)\n\n' +
+    '<div class="step-label">Substituting values (Q converted to W):</div>A = (' + Q + ' × 1000) / (' + U + ' × ' + lmtd.toFixed(2) + ')\n\n' +
+    '<div class="step-label">Result:</div>A = ' + AFormatted + ' m²';
+
+  workingBox.innerHTML = workingText;
+  workingBox.className = 'show';
+
+  lastResult = 'Required Area = ' + AFormatted + ' m² (Q=' + Q + 'kW, U=' + U + 'W/m²K, LMTD=' + lmtd.toFixed(2) + '°C)';
+}
+
+function loadExample(exMode, Q, U, lmtdVal, flow, thIn, thOut, tcIn, tcOut) {
+  setMode(exMode);
+  document.getElementById('duty').value = Q;
+  document.getElementById('uValue').value = U;
+  if (exMode === 'direct') {
+    document.getElementById('lmtdInput').value = lmtdVal;
+  } else {
+    setFlow(flow);
+    document.getElementById('thIn').value = thIn;
+    document.getElementById('thOut').value = thOut;
+    document.getElementById('tcIn').value = tcIn;
+    document.getElementById('tcOut').value = tcOut;
+  }
+  calculate();
+  document.getElementById('calcCard').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function copyResult() {
+  if (!lastResult) return;
+  navigator.clipboard.writeText(lastResult).then(() => {
+    const btn = document.querySelector('.copy-btn');
+    const original = btn.textContent;
+    btn.textContent = '✓ Copied!';
+    setTimeout(() => { btn.textContent = original; }, 1500);
+  });
+}
+</script>
+
+</body>
+</html>
