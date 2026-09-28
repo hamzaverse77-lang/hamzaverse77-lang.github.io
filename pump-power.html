@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://hamzaverse77-lang.github.io/pump-power.html">
 <title>Pump Power Calculator with Steps - Hydraulic & Brake Power, Solved Examples</title>
 <meta name="description" content="Free pump power calculator with full step-by-step working for hydraulic and brake power, using head or pressure rise. Includes solved practice examples and FAQ.">
 <meta name="keywords" content="pump power calculator, pump power calculator with steps, hydraulic power calculator, brake power calculator, centrifugal pump power, chemical engineering calculator">
@@ -196,6 +197,14 @@
     color: var(--primary-dark);
   }
   details.faq p { margin: 10px 0 0 0; font-size: 0.92rem; }
+
+  article h3 { color: var(--primary-dark); font-size: 1rem; margin: 20px 0 6px 0; }
+  article ul { padding-left: 20px; margin: 8px 0; }
+  article li { margin-bottom: 8px; font-size: 0.95rem; }
+  .solution { background: #f8fafb; border-left: 3px solid var(--primary); padding: 10px 14px; margin-bottom: 14px; border-radius: 4px; }
+  .solution p { margin: 6px 0; font-size: 0.93rem; }
+  .tool-link { display: inline-block; background: var(--primary-dark); color: #fff; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-size: 0.85rem; font-weight: 600; margin-top: 8px; }
+  .tool-link:hover { background: var(--primary); }
 </style>
 </head>
 <body>
@@ -205,7 +214,8 @@
   <p>Hydraulic and brake power for centrifugal pumps, with full step-by-step working</p>
 </header>
 <nav class="site-nav">
-  <a href="index.html">Reynolds Calculator</a>
+  <a href="index.html">Home</a>
+  <a href="reynolds-number-calculator.html">Reynolds Calculator</a>
   <a href="friction-factor.html">Friction Factor Calculator</a>
   <a href="lmtd.html">LMTD Calculator</a>
   <a href="heat-exchanger-area.html">Heat Exchanger Area Calculator</a>
@@ -303,6 +313,56 @@
       <p>An oil transfer pump moves oil (ρ = 850 kg/m³) at 200 m³/h against a total head of 80 m, at 68% efficiency. Find the hydraulic and brake power.</p>
       <button class="try-btn" type="button" onclick="loadExample('head',200,850,80,68)">Try This Example</button>
     </div>
+  </article>
+
+  <article class="card">
+    <h2>Worked Solutions in Full</h2>
+    <p>Each example is solved completely, and then taken one step further to a motor size, since that is the reason for doing the calculation.</p>
+    <h3>Example 1 — Water pump, head known</h3>
+    <div class="solution">
+      <p><strong>Given:</strong> Q = 50 m³/h, ρ = 1000 kg/m³, H = 30 m, η = 75%</p>
+      <p><strong>Step 1 — Hydraulic power formula:</strong> P<sub>h</sub> (kW) = ρ × g × Q × H / 3,600,000, with Q in m³/h</p>
+      <p><strong>Step 2 — Multiply the top line:</strong> 1000 × 9.81 × 50 × 30 = 14,715,000</p>
+      <p><strong>Step 3 — Divide:</strong> 14,715,000 / 3,600,000 = 4.088 kW</p>
+      <p><strong>Step 4 — Brake power:</strong> P<sub>b</sub> = P<sub>h</sub> / η = 4.088 / 0.75 = 5.450 kW</p>
+      <p><strong>Step 5 — Motor selection:</strong> With a 15% margin, 5.45 × 1.15 = 6.27 kW, so the next standard motor is <strong>7.5 kW</strong>.</p>
+      <p><strong>Answer:</strong> Hydraulic power 4.09 kW, brake power 5.45 kW, choose a 7.5 kW motor.</p>
+    </div>
+    <h3>Example 2 — Pressure rise known</h3>
+    <div class="solution">
+      <p><strong>Given:</strong> Q = 20 m³/h, ΔP = 250 kPa, η = 70%</p>
+      <p><strong>Step 1 — Hydraulic power formula:</strong> P<sub>h</sub> (kW) = Q × ΔP / 3600, with Q in m³/h and ΔP in kPa</p>
+      <p><strong>Step 2 — Substitute:</strong> 20 × 250 / 3600 = 1.389 kW</p>
+      <p><strong>Step 3 — Brake power:</strong> 1.389 / 0.70 = 1.984 kW</p>
+      <p><strong>Step 4 — Motor selection:</strong> 1.98 × 1.15 = 2.28 kW, so choose <strong>3 kW</strong>.</p>
+      <p><strong>Answer:</strong> Hydraulic power 1.39 kW, brake power 1.98 kW, choose a 3 kW motor.</p>
+    </div>
+    <h3>Example 3 — Oil pump, head known</h3>
+    <div class="solution">
+      <p><strong>Given:</strong> Q = 200 m³/h, ρ = 850 kg/m³, H = 80 m, η = 68%</p>
+      <p><strong>Step 1 — Multiply the top line:</strong> 850 × 9.81 × 200 × 80 = 133,416,000</p>
+      <p><strong>Step 2 — Hydraulic power:</strong> 133,416,000 / 3,600,000 = 37.060 kW</p>
+      <p><strong>Step 3 — Brake power:</strong> 37.060 / 0.68 = 54.500 kW</p>
+      <p><strong>Step 4 — Motor selection:</strong> 54.50 × 1.15 = 62.67 kW, so choose <strong>75 kW</strong>.</p>
+      <p><strong>Answer:</strong> Hydraulic power 37.06 kW, brake power 54.50 kW, choose a 75 kW motor.</p>
+    </div>
+    <p><em>Motor sizes above follow the common IEC rating series. A 15% margin is a typical rule of thumb, not a universal rule: check your project standard and the pump manufacturer's power curve.</em></p>
+
+  </article>
+
+  <article class="card">
+    <h2>Practical Notes and Common Mistakes</h2>
+    <p>Pump duty comes from the process: the flow you need, and the total head the system demands (static lift, pressure difference and pipe friction). Get the friction part from the <a href="friction-factor.html">Friction Factor Calculator</a>, and check the suction side is safe with the <a href="npsh.html">NPSH Calculator</a> before you settle on a pump.</p>
+    <h3>Mistakes that give wrong answers</h3>
+    <ul>
+      <li><strong>Sizing the motor from hydraulic power.</strong> The motor must supply brake power, which is higher.</li>
+      <li><strong>Forgetting density.</strong> Head-based power scales directly with density, so an oil or brine pump is not sized like a water pump.</li>
+      <li><strong>Confusing pump and overall efficiency.</strong> The η here is the pump efficiency. Motor and drive losses are extra and make the electrical input larger still.</li>
+      <li><strong>Wrong flow units.</strong> The formulas here take Q in m³/h. Using m³/s or L/min without converting gives a wildly wrong answer.</li>
+      <li><strong>Leaving out friction.</strong> Static lift alone understates the head; pipe friction and fittings usually add a large share.</li>
+      <li><strong>Ignoring the operating range.</strong> A pump can run at a different flow than its design point. Check power at the highest flow it may see.</li>
+    </ul>
+
   </article>
 
   <article class="card">

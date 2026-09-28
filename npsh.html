@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://hamzaverse77-lang.github.io/npsh.html">
 <title>NPSH Calculator with Steps - Cavitation Check for Centrifugal Pumps</title>
 <meta name="description" content="Free NPSH available calculator with cavitation risk check against NPSHr, full step-by-step working, solved examples, and FAQ for centrifugal pump suction design.">
 <meta name="keywords" content="npsh calculator, npsh available calculator, cavitation calculator, pump suction head calculator, npsha npshr, chemical engineering calculator">
@@ -196,6 +197,14 @@
     color: var(--primary-dark);
   }
   details.faq p { margin: 10px 0 0 0; font-size: 0.92rem; }
+
+  article h3 { color: var(--primary-dark); font-size: 1rem; margin: 20px 0 6px 0; }
+  article ul { padding-left: 20px; margin: 8px 0; }
+  article li { margin-bottom: 8px; font-size: 0.95rem; }
+  .solution { background: #f8fafb; border-left: 3px solid var(--primary); padding: 10px 14px; margin-bottom: 14px; border-radius: 4px; }
+  .solution p { margin: 6px 0; font-size: 0.93rem; }
+  .tool-link { display: inline-block; background: var(--primary-dark); color: #fff; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-size: 0.85rem; font-weight: 600; margin-top: 8px; }
+  .tool-link:hover { background: var(--primary); }
 </style>
 </head>
 <body>
@@ -205,7 +214,8 @@
   <p>Net Positive Suction Head available, with cavitation risk check and full step-by-step working</p>
 </header>
 <nav class="site-nav">
-  <a href="index.html">Reynolds Calculator</a>
+  <a href="index.html">Home</a>
+  <a href="reynolds-number-calculator.html">Reynolds Calculator</a>
   <a href="friction-factor.html">Friction Factor Calculator</a>
   <a href="lmtd.html">LMTD Calculator</a>
   <a href="heat-exchanger-area.html">Heat Exchanger Area Calculator</a>
@@ -302,6 +312,65 @@
       <p>A light hydrocarbon (Pv = 25 kPa, ρ = 750 kg/m³) is fed from a tank 1.5 m above the pump, with 0.5 m of suction line friction loss. Pump requires NPSHr = 2.5 m.</p>
       <button class="try-btn" type="button" onclick="loadExample(101.325,25,750,1.5,0.5,2.5)">Try This Example</button>
     </div>
+  </article>
+
+  <article class="card">
+    <h2>Worked Solutions in Full</h2>
+    <p>Each example is worked through in full, ending with the safety decision against the pump's required NPSH.</p>
+    <h3>Example 1 — Cold water, flooded suction</h3>
+    <div class="solution">
+      <p><strong>Given:</strong> Water at 20 °C, tank 3 m above the pump. P<sub>a</sub> = 101.325 kPa, P<sub>v</sub> = 2.34 kPa, ρ = 998 kg/m³, H<sub>z</sub> = 3 m, H<sub>f</sub> = 0.8 m, NPSHr = 3 m</p>
+      <p><strong>Step 1 — Write the formula:</strong> NPSHa = (P<sub>a</sub> − P<sub>v</sub>) / (ρ g) + H<sub>z</sub> − H<sub>f</sub></p>
+      <p><strong>Step 2 — Pressure margin term:</strong> (101.325 − 2.34) × 1000 / (998 × 9.81) = 10.11 m</p>
+      <p><strong>Step 3 — Add static head, subtract friction:</strong> 10.11 + (3) − 0.8 = 12.31 m</p>
+      <p><strong>Step 4 — Compare with NPSHr:</strong> NPSHa is 9.31 m above NPSHr, so the pump is <strong>safe</strong> with a comfortable margin.</p>
+      <p><strong>Answer:</strong> NPSHa ≈ 12.31 m against NPSHr = 3 m.</p>
+    </div>
+    <h3>Example 2 — Hot water, suction lift</h3>
+    <div class="solution">
+      <p><strong>Given:</strong> Water at 80 °C, pump 2 m above the liquid level. P<sub>a</sub> = 101.325 kPa, P<sub>v</sub> = 47.39 kPa, ρ = 971.8 kg/m³, H<sub>z</sub> = -2 m, H<sub>f</sub> = 1.2 m, NPSHr = 4 m</p>
+      <p><strong>Step 1 — Write the formula:</strong> NPSHa = (P<sub>a</sub> − P<sub>v</sub>) / (ρ g) + H<sub>z</sub> − H<sub>f</sub></p>
+      <p><strong>Step 2 — Pressure margin term:</strong> (101.325 − 47.39) × 1000 / (971.8 × 9.81) = 5.66 m</p>
+      <p><strong>Step 3 — Add static head, subtract friction:</strong> 5.66 + (-2) − 1.2 = 2.46 m</p>
+      <p><strong>Step 4 — Compare with NPSHr:</strong> NPSHa is 1.54 m <em>below</em> NPSHr, so the pump will <strong>cavitate</strong>. The suction side must be redesigned.</p>
+      <p><strong>Answer:</strong> NPSHa ≈ 2.46 m against NPSHr = 4 m.</p>
+    </div>
+    <h3>Example 3 — Light hydrocarbon, flooded suction</h3>
+    <div class="solution">
+      <p><strong>Given:</strong> Light hydrocarbon, tank 1.5 m above the pump. P<sub>a</sub> = 101.325 kPa, P<sub>v</sub> = 25 kPa, ρ = 750 kg/m³, H<sub>z</sub> = 1.5 m, H<sub>f</sub> = 0.5 m, NPSHr = 2.5 m</p>
+      <p><strong>Step 1 — Write the formula:</strong> NPSHa = (P<sub>a</sub> − P<sub>v</sub>) / (ρ g) + H<sub>z</sub> − H<sub>f</sub></p>
+      <p><strong>Step 2 — Pressure margin term:</strong> (101.325 − 25) × 1000 / (750 × 9.81) = 10.37 m</p>
+      <p><strong>Step 3 — Add static head, subtract friction:</strong> 10.37 + (1.5) − 0.5 = 11.37 m</p>
+      <p><strong>Step 4 — Compare with NPSHr:</strong> NPSHa is 8.87 m above NPSHr, so the pump is <strong>safe</strong> with a comfortable margin.</p>
+      <p><strong>Answer:</strong> NPSHa ≈ 11.37 m against NPSHr = 2.5 m.</p>
+    </div>
+    <h3>Fixing Example 2</h3>
+    <div class="solution">
+      <p>Example 2 fails with NPSHa = 2.46 m. Moving the tank so the liquid sits 3 m <em>above</em> the pump (H<sub>z</sub> = +3 m) gives NPSHa = 5.66 + 3 − 1.2 = 7.46 m, which clears the 4.0 m requirement by 3.46 m.</p>
+    </div>
+
+  </article>
+
+  <article class="card">
+    <h2>Practical Notes and Common Mistakes</h2>
+    <p>NPSH is the suction-side check that goes with every centrifugal pump selection. It tells you whether the liquid can reach the impeller without boiling. Once the suction side passes, size the driver with the <a href="pump-power.html">Pump Power Calculator</a>.</p>
+    <h3>Mistakes that give wrong answers</h3>
+    <ul>
+      <li><strong>Gauge instead of absolute pressure.</strong> Both P<sub>a</sub> and P<sub>v</sub> must be absolute. An open tank at sea level is about 101.3 kPa absolute, not 0.</li>
+      <li><strong>Wrong sign on static head.</strong> Positive when the liquid level is above the pump, negative for a suction lift.</li>
+      <li><strong>Vapor pressure at the wrong temperature.</strong> P<sub>v</sub> rises steeply with temperature, as Example 2 shows. Use the actual pumping temperature, including any heating in the line.</li>
+      <li><strong>Forgetting that friction changes with flow.</strong> Suction-line loss rises with flow, and NPSHr also rises with flow, so check the highest flow the pump will see.</li>
+      <li><strong>No safety margin.</strong> Datasheet NPSHr is measured under controlled test conditions. Keep at least 0.5 to 1 m of margin, and more for critical services.</li>
+    </ul>
+    <h3>Ways to raise NPSHa</h3>
+    <ul>
+      <li>Raise the liquid level or lower the pump.</li>
+      <li>Use larger suction piping and fewer fittings to cut friction loss.</li>
+      <li>Cool the liquid to lower its vapor pressure.</li>
+      <li>Pressurise the source vessel.</li>
+      <li>Choose a pump with a lower NPSHr, such as a lower-speed or larger-eye design.</li>
+    </ul>
+
   </article>
 
   <article class="card">

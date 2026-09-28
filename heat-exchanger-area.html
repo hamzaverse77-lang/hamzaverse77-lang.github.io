@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://hamzaverse77-lang.github.io/heat-exchanger-area.html">
 <title>Heat Exchanger Area Calculator with Steps - Q = U × A × LMTD Solved for A</title>
 <meta name="description" content="Free heat exchanger area calculator solving A = Q / (U × LMTD), with full step-by-step working, solved examples, and FAQ. Enter LMTD directly or calculate it from temperatures.">
 <meta name="keywords" content="heat exchanger area calculator, heat exchanger sizing calculator, overall heat transfer coefficient calculator, UA LMTD calculator, chemical engineering calculator">
@@ -196,6 +197,14 @@
     color: var(--primary-dark);
   }
   details.faq p { margin: 10px 0 0 0; font-size: 0.92rem; }
+
+  article h3 { color: var(--primary-dark); font-size: 1rem; margin: 20px 0 6px 0; }
+  article ul { padding-left: 20px; margin: 8px 0; }
+  article li { margin-bottom: 8px; font-size: 0.95rem; }
+  .solution { background: #f8fafb; border-left: 3px solid var(--primary); padding: 10px 14px; margin-bottom: 14px; border-radius: 4px; }
+  .solution p { margin: 6px 0; font-size: 0.93rem; }
+  .tool-link { display: inline-block; background: var(--primary-dark); color: #fff; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-size: 0.85rem; font-weight: 600; margin-top: 8px; }
+  .tool-link:hover { background: var(--primary); }
 </style>
 </head>
 <body>
@@ -205,7 +214,8 @@
   <p>Required heat transfer area from duty, U, and LMTD — with full step-by-step working</p>
 </header>
 <nav class="site-nav">
-  <a href="index.html">Reynolds Calculator</a>
+  <a href="index.html">Home</a>
+  <a href="reynolds-number-calculator.html">Reynolds Calculator</a>
   <a href="friction-factor.html">Friction Factor Calculator</a>
   <a href="lmtd.html">LMTD Calculator</a>
   <a href="heat-exchanger-area.html" class="active">Heat Exchanger Area Calculator</a>
@@ -331,6 +341,61 @@
       <p>A counter-current exchanger: hot fluid 140°C → 95°C, cold fluid 25°C → 70°C, duty 300 kW, U = 600 W/m²·K. Find the required area (this is the equal-ΔT edge case — watch the working).</p>
       <button class="try-btn" type="button" onclick="loadExample('temp',300,600,null,'counter',140,95,25,70)">Try This Example</button>
     </div>
+  </article>
+
+  <article class="card">
+    <h2>Worked Solutions in Full</h2>
+    <p>Three examples solved in full, followed by a complete problem that starts from flow rates and ends with an area, which is how the calculation usually arises in practice.</p>
+    <h3>Example 1 — Water-to-water exchanger</h3>
+    <div class="solution">
+      <p><strong>Given:</strong> Q = 500 kW, U = 850 W/m²·K, LMTD = 45 °C</p>
+      <p><strong>Step 1 — Rearrange Q = U × A × LMTD:</strong> A = Q / (U × LMTD)</p>
+      <p><strong>Step 2 — Convert duty to watts:</strong> 500 kW = 500,000 W</p>
+      <p><strong>Step 3 — Substitute:</strong> A = 500,000 / (850 × 45) = 500,000 / 38,250</p>
+      <p><strong>Answer:</strong> A ≈ 13.07 m²</p>
+    </div>
+    <h3>Example 2 — Gas cooler (low U)</h3>
+    <div class="solution">
+      <p><strong>Given:</strong> Q = 120 kW, U = 300 W/m²·K, LMTD = 25 °C</p>
+      <p><strong>Step 1 — Substitute:</strong> A = 120,000 / (300 × 25) = 120,000 / 7,500</p>
+      <p><strong>Answer:</strong> A ≈ 16.00 m². This is larger than Example 1 even though the duty is lower, because U is lower and the driving force is smaller.</p>
+    </div>
+    <h3>Example 3 — LMTD from temperatures first</h3>
+    <div class="solution">
+      <p><strong>Given:</strong> Counter-current, hot 140 → 95 °C, cold 25 → 70 °C, Q = 300 kW, U = 600 W/m²·K</p>
+      <p><strong>Step 1 — ΔT₁:</strong> 140 − 70 = 70 °C</p>
+      <p><strong>Step 2 — ΔT₂:</strong> 95 − 25 = 70 °C</p>
+      <p><strong>Step 3 — Special case:</strong> The two differences are equal, so the log formula would divide zero by zero. In this case LMTD simply equals the common value.</p>
+      <p><strong>Step 4 — LMTD:</strong> 70 °C</p>
+      <p><strong>Step 5 — Area:</strong> A = 300,000 / (600 × 70) = 300,000 / 42,000</p>
+      <p><strong>Answer:</strong> A ≈ 7.14 m²</p>
+    </div>
+    <h3>Full problem — from flow rates to area</h3>
+    <div class="solution">
+      <p><strong>Given:</strong> Hot oil, 2 kg/s, c<sub>p</sub> = 2.1 kJ/kg·K, cooled from 150 °C to 90 °C. Cooling water enters at 30 °C and leaves at 80 °C (c<sub>p</sub> = 4.18 kJ/kg·K). Counter-current, U = 400 W/m²·K.</p>
+      <p><strong>Step 1 — Heat duty from the oil:</strong> Q = ṁ c<sub>p</sub> ΔT = 2 × 2.1 × (150 − 90) = 252 kW</p>
+      <p><strong>Step 2 — Cooling water flow needed:</strong> ṁ = Q / (c<sub>p</sub> ΔT) = 252 / (4.18 × 50) = 1.21 kg/s</p>
+      <p><strong>Step 3 — Temperature differences:</strong> ΔT₁ = 150 − 80 = 70 °C, ΔT₂ = 90 − 30 = 60 °C</p>
+      <p><strong>Step 4 — LMTD:</strong> (70 − 60) / ln(70/60) = 64.87 °C. This is Example 1 of the <a href="lmtd.html">LMTD Calculator</a>.</p>
+      <p><strong>Step 5 — Required area:</strong> A = 252,000 / (400 × 64.87) = 9.71 m²</p>
+      <p><strong>Answer:</strong> Duty 252 kW, water flow 1.21 kg/s, required area ≈ 9.7 m².</p>
+    </div>
+
+  </article>
+
+  <article class="card">
+    <h2>Practical Notes and Common Mistakes</h2>
+    <p>This equation is the last step in a preliminary exchanger sizing. The duty comes from an energy balance, the LMTD from the terminal temperatures (see the <a href="lmtd.html">LMTD Calculator</a>), and U from tables or a detailed film-coefficient calculation. The area you get is a first estimate that a full thermal design will refine.</p>
+    <h3>Mistakes that give wrong answers</h3>
+    <ul>
+      <li><strong>kW versus W.</strong> U is in W/m²·K, so duty must be converted to watts. Skipping this makes the area 1,000 times too small.</li>
+      <li><strong>Using a clean-surface U.</strong> Fouling lowers U over time. Use a fouled (dirty) U, or add a fouling allowance, so the exchanger still works after months of service.</li>
+      <li><strong>Skipping the correction factor.</strong> For multi-pass or cross-flow exchangers, A = Q / (U × F × LMTD), with F below 1, so the true area is larger.</li>
+      <li><strong>Inconsistent duty.</strong> The hot side and cold side must give the same Q. If they do not, the temperatures or flow rates are inconsistent.</li>
+      <li><strong>A U value from the wrong service.</strong> Gas-side services have U values ten to a hundred times lower than liquid-to-liquid, which changes the area enormously.</li>
+      <li><strong>No design margin.</strong> The result is the theoretical minimum. Add an allowance for uncertainty in U and for future capacity.</li>
+    </ul>
+
   </article>
 
   <article class="card">

@@ -3,9 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Reynolds Number Calculator with Steps - Solved Examples & Flow Regime</title>
-<meta name="description" content="Free Reynolds number calculator with full step-by-step working, dynamic or kinematic viscosity input, 3 solved practice examples, and FAQ. Get Re and flow regime (laminar, transitional, turbulent) instantly.">
-<meta name="keywords" content="reynolds number calculator with steps, reynolds number calculator, pipe flow calculator, laminar turbulent flow, reynolds number solved examples, chemical engineering calculator">
+<link rel="canonical" href="https://hamzaverse77-lang.github.io/">
+<title>Free Chemical Engineering Calculators with Step-by-Step Working | HamzaVerse Tools</title>
+<meta name="description" content="Six free chemical engineering calculators with full step-by-step working and solved examples: Reynolds number, friction factor, LMTD, heat exchanger area, pump power and NPSH.">
+<meta name="keywords" content="chemical engineering calculators, reynolds number calculator, lmtd calculator, pump power calculator, npsh calculator, heat exchanger area calculator, friction factor calculator">
 <style>
   :root {
     --bg: #f4f6f8;
@@ -196,16 +197,25 @@
     color: var(--primary-dark);
   }
   details.faq p { margin: 10px 0 0 0; font-size: 0.92rem; }
+
+  article h3 { color: var(--primary-dark); font-size: 1rem; margin: 20px 0 6px 0; }
+  article ul { padding-left: 20px; margin: 8px 0; }
+  article li { margin-bottom: 8px; font-size: 0.95rem; }
+  .solution { background: #f8fafb; border-left: 3px solid var(--primary); padding: 10px 14px; margin-bottom: 14px; border-radius: 4px; }
+  .solution p { margin: 6px 0; font-size: 0.93rem; }
+  .tool-link { display: inline-block; background: var(--primary-dark); color: #fff; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-size: 0.85rem; font-weight: 600; margin-top: 8px; }
+  .tool-link:hover { background: var(--primary); }
 </style>
 </head>
 <body>
 
 <header>
-  <h1>Reynolds Number Calculator</h1>
-  <p>Get Re, flow regime, and full step-by-step working — plus 3 solved practice problems</p>
+  <h1>Chemical Engineering Calculators</h1>
+  <p>Free tools that show every step of the working, not just the answer</p>
 </header>
 <nav class="site-nav">
-  <a href="index.html" class="active">Reynolds Calculator</a>
+  <a href="index.html" class="active">Home</a>
+  <a href="reynolds-number-calculator.html">Reynolds Calculator</a>
   <a href="friction-factor.html">Friction Factor Calculator</a>
   <a href="lmtd.html">LMTD Calculator</a>
   <a href="heat-exchanger-area.html">Heat Exchanger Area Calculator</a>
@@ -218,117 +228,85 @@
 
 <main>
 
-  <section class="card" id="calcCard">
-    <div class="mode-toggle">
-      <button id="dynBtn" class="active" onclick="setMode('dynamic')" type="button">Dynamic Viscosity (μ)</button>
-      <button id="kinBtn" onclick="setMode('kinematic')" type="button">Kinematic Viscosity (ν)</button>
-    </div>
-
-    <div class="row" id="densityRow">
-      <div class="field">
-        <label for="density">Fluid Density (ρ)</label>
-        <input type="number" id="density" step="any" placeholder="e.g. 998">
-        <small class="note">kg/m³</small>
-      </div>
-      <div class="field">
-        <label for="velocity">Velocity (v)</label>
-        <input type="number" id="velocity" step="any" placeholder="e.g. 2.5">
-        <small class="note">m/s</small>
-      </div>
-    </div>
-    <div class="row">
-      <div class="field">
-        <label for="diameter">Pipe Diameter (D)</label>
-        <input type="number" id="diameter" step="any" placeholder="e.g. 0.05">
-        <small class="note">m</small>
-      </div>
-      <div class="field" id="viscosityField">
-        <label for="viscosity">Dynamic Viscosity (μ)</label>
-        <input type="number" id="viscosity" step="any" placeholder="e.g. 0.001">
-        <small class="note">Pa·s (kg/m·s)</small>
-      </div>
-    </div>
-
-    <button onclick="calculate()">Calculate Reynolds Number</button>
-
-    <div id="result">
-      <div>Reynolds Number:</div>
-      <div id="reValue">--</div>
-      <div id="regimeLabel">--</div>
-      <button class="copy-btn" onclick="copyResult()" type="button">📋 Copy Result</button>
-    </div>
-
-    <div id="workingBox"></div>
-  </section>
-
   <article class="card">
-    <h2>What is the Reynolds Number?</h2>
-    <p>The Reynolds number (Re) is a dimensionless quantity used to predict whether flow in a pipe will be smooth (laminar) or chaotic (turbulent). It is calculated as:</p>
-    <p><code>Re = (ρ × v × D) / μ</code></p>
-    <p>where ρ is fluid density, v is flow velocity, D is the pipe's internal diameter, and μ is the fluid's dynamic viscosity.</p>
-
-    <h2>Flow Regimes</h2>
-    <table>
-      <tr><th>Reynolds Number</th><th>Regime</th><th>Description</th></tr>
-      <tr><td>Re &lt; 2300</td><td>Laminar</td><td>Smooth, orderly flow in parallel layers</td></tr>
-      <tr><td>2300 ≤ Re ≤ 4000</td><td>Transitional</td><td>Unstable, switches between laminar and turbulent</td></tr>
-      <tr><td>Re &gt; 4000</td><td>Turbulent</td><td>Chaotic, mixing flow with eddies</td></tr>
-    </table>
-
-    <h2>Why It Matters</h2>
-    <p>Engineers use the Reynolds number to select the right friction factor correlation, predict pressure drop, and size pumps correctly. Using a laminar-flow formula on turbulent flow (or vice versa) gives badly wrong pressure drop estimates.</p>
+    <h2>What this site is</h2>
+    <p>Most online calculators give you a number and nothing else. That is fine for a quick check, but it does not help you learn the method or spot a mistake. Every calculator here shows the formula, the substitution and the arithmetic, and every page includes worked examples you can load with one click.</p>
+    <p>The tools are built by a chemical engineering student for students and early-career engineers working through fluid flow, pumping and heat transfer. They are free, need no signup, and run entirely in your browser.</p>
   </article>
 
   <article class="card">
-    <h2>Solved Examples (Practice Problems)</h2>
-    <p>Click "Try This Example" to auto-fill the calculator above and see the full step-by-step working.</p>
-
+    <h2>The six calculators</h2>
     <div class="example-card">
-      <h3>Example 1 — Water in a pipe (turbulent)</h3>
-      <p>Water (ρ = 998 kg/m³, μ = 0.001 Pa·s) flows at 2.5 m/s through a 50 mm diameter pipe. Find the Reynolds number and flow regime.</p>
-      <button class="try-btn" type="button" onclick="loadExample(998,2.5,0.05,0.001)">Try This Example</button>
+      <h3>Reynolds Number Calculator</h3>
+      <p>Find Re and the flow regime (laminar, transitional or turbulent) from density, velocity, diameter and viscosity. Works with dynamic or kinematic viscosity.</p>
+      <p><em>Start here for any pipe-flow problem.</em></p>
+      <a class="tool-link" href="reynolds-number-calculator.html">Open calculator</a>
     </div>
-
     <div class="example-card">
-      <h3>Example 2 — Lubricating oil in a pipe (laminar)</h3>
-      <p>A lubricating oil (ρ = 900 kg/m³, μ = 0.29 Pa·s) flows at 0.6 m/s through a 25 mm diameter pipe. Find the Reynolds number and flow regime.</p>
-      <button class="try-btn" type="button" onclick="loadExample(900,0.6,0.025,0.29)">Try This Example</button>
+      <h3>Friction Factor and Head Loss Calculator</h3>
+      <p>Darcy-Weisbach head loss for a straight pipe, using 64/Re for laminar flow and the Swamee-Jain equation for turbulent flow.</p>
+      <p><em>Use it once you know Re and want the pressure drop.</em></p>
+      <a class="tool-link" href="friction-factor.html">Open calculator</a>
     </div>
-
     <div class="example-card">
-      <h3>Example 3 — Air in a duct (transitional zone)</h3>
-      <p>Air (ρ = 1.2 kg/m³, μ = 0.000018 Pa·s) flows at 2 m/s through a 25 mm diameter duct. Find the Reynolds number and flow regime.</p>
-      <button class="try-btn" type="button" onclick="loadExample(1.2,2,0.025,0.000018)">Try This Example</button>
+      <h3>Pump Power Calculator</h3>
+      <p>Hydraulic and brake power from flow rate and either head or pressure rise, so you can pick a motor.</p>
+      <p><em>Use it when you know the duty and need a driver size.</em></p>
+      <a class="tool-link" href="pump-power.html">Open calculator</a>
     </div>
+    <div class="example-card">
+      <h3>NPSH Calculator</h3>
+      <p>Net positive suction head available, with a cavitation check against the pump's required NPSH.</p>
+      <p><em>Use it before you commit to a pump.</em></p>
+      <a class="tool-link" href="npsh.html">Open calculator</a>
+    </div>
+    <div class="example-card">
+      <h3>LMTD Calculator</h3>
+      <p>Log mean temperature difference for counter-current or co-current heat exchangers, including the equal-difference edge case.</p>
+      <p><em>Start here for any heat exchanger problem.</em></p>
+      <a class="tool-link" href="lmtd.html">Open calculator</a>
+    </div>
+    <div class="example-card">
+      <h3>Heat Exchanger Area Calculator</h3>
+      <p>Required heat transfer area from duty, overall coefficient and LMTD, with the option to calculate LMTD from temperatures.</p>
+      <p><em>Use it to size the surface once you have Q, U and LMTD.</em></p>
+      <a class="tool-link" href="heat-exchanger-area.html">Open calculator</a>
+    </div>
+  </article>
+
+  <article class="card">
+    <h2>Two suggested learning paths</h2>
+    <p><strong>Piping and pumping:</strong> <a href="reynolds-number-calculator.html">Reynolds number</a> → <a href="friction-factor.html">friction factor and head loss</a> → <a href="pump-power.html">pump power</a> → <a href="npsh.html">NPSH</a>. Each result feeds the next: Re tells you the flow regime, which gives the friction factor, which gives the head the pump must develop, which sets the power and the suction requirement.</p>
+    <p><strong>Heat transfer:</strong> <a href="lmtd.html">LMTD</a> → <a href="heat-exchanger-area.html">heat exchanger area</a>. The temperature difference from the first tool is the driving force in the second.</p>
+  </article>
+
+  <article class="card">
+    <h2>Assumptions and accuracy</h2>
+    <p>All calculators use SI units and g = 9.81 m/s². Head loss uses the Darcy friction factor, with 64/Re for laminar flow and the Swamee-Jain approximation of the Colebrook-White equation for turbulent flow. Results between Re 2,300 and 5,000 are estimates, because real flow in that band is unpredictable. The heat exchanger tools assume pure counter-current or co-current flow (correction factor F = 1). These calculators are for learning, checking and preliminary estimates. They are not a substitute for a full design or for the checks your project standards require.</p>
   </article>
 
   <article class="card">
     <h2>Frequently Asked Questions</h2>
 
     <details class="faq">
-      <summary>What is a good Reynolds number for turbulent flow?</summary>
-      <p>For flow inside a circular pipe, Re above 4000 is generally treated as fully turbulent. Between 2300 and 4000 the flow is transitional and unstable — in practice, engineers usually design to avoid operating in this range because pressure drop becomes unpredictable.</p>
+      <summary>Are these calculators really free?</summary>
+      <p>Yes. There is no signup and no paywall. The site may show ads later to cover the time it takes to build and maintain it.</p>
     </details>
 
     <details class="faq">
-      <summary>Can I calculate Reynolds number without knowing density?</summary>
-      <p>Yes — switch to "Kinematic Viscosity" mode above. Instead of Re = ρvD/μ, it uses Re = vD/ν, where ν (kinematic viscosity) already accounts for density. This is common when working from a fluid properties table that lists ν directly, such as for air or steam.</p>
+      <summary>Can I use them in an exam?</summary>
+      <p>Check your exam rules. Most closed-book exams do not allow websites. They are best used to check your practice problems and to see where a hand calculation went wrong.</p>
     </details>
 
     <details class="faq">
-      <summary>Does pipe diameter use inside diameter or outside diameter?</summary>
-      <p>Always use the internal (inside) diameter — the actual cross-section the fluid flows through, not the pipe's nominal or outer diameter. For non-circular ducts, use the hydraulic diameter instead.</p>
+      <summary>Which units do the calculators use?</summary>
+      <p>SI units throughout: metres, seconds, kilograms, pascals and degrees Celsius for temperature differences. Each input box shows the unit it expects.</p>
     </details>
 
     <details class="faq">
-      <summary>Why does Reynolds number matter for pump and pipe sizing?</summary>
-      <p>The flow regime determines which friction factor correlation is valid. Laminar flow uses f = 64/Re; turbulent flow requires the Colebrook or Moody chart approach. Using the wrong one gives a badly wrong pressure drop, which leads to an under- or over-sized pump.</p>
+      <summary>I think I found an error. What should I do?</summary>
+      <p>Please tell me on the <a href="contact.html">Contact page</a>, and include the calculator, the values you entered and the result you expected. Corrections are made quickly.</p>
     </details>
-  </article>
-
-  <article class="card">
-    <h2>Related Tool</h2>
-    <p>Already have your Reynolds number? Use it directly to find pressure drop with the <a href="friction-factor.html">Friction Factor &amp; Head Loss Calculator</a> — it picks up right where this one leaves off.</p>
   </article>
 
 </main>
@@ -336,113 +314,6 @@
 <footer>
   Built with plain HTML/CSS/JS. No tracking, no signup. · <a href="about.html">About</a> · <a href="privacy.html">Privacy</a> · <a href="contact.html">Contact</a>
 </footer>
-
-<script>
-let mode = 'dynamic';
-let lastResult = null;
-
-function setMode(newMode) {
-  mode = newMode;
-  document.getElementById('dynBtn').classList.toggle('active', mode === 'dynamic');
-  document.getElementById('kinBtn').classList.toggle('active', mode === 'kinematic');
-
-  const viscosityField = document.getElementById('viscosityField');
-  const densityRow = document.getElementById('densityRow');
-
-  if (mode === 'kinematic') {
-    densityRow.style.display = 'none';
-    viscosityField.innerHTML = '<label for="viscosity">Kinematic Viscosity (ν)</label>' +
-      '<input type="number" id="viscosity" step="any" placeholder="e.g. 0.0000015">' +
-      '<small class="note">m²/s</small>';
-  } else {
-    densityRow.style.display = 'flex';
-    viscosityField.innerHTML = '<label for="viscosity">Dynamic Viscosity (μ)</label>' +
-      '<input type="number" id="viscosity" step="any" placeholder="e.g. 0.001">' +
-      '<small class="note">Pa·s (kg/m·s)</small>';
-  }
-  document.getElementById('result').className = '';
-  document.getElementById('workingBox').className = '';
-}
-
-function classify(re) {
-  if (re < 2300) return { regime: 'Laminar Flow', cssClass: 'regime-laminar' };
-  if (re <= 4000) return { regime: 'Transitional Flow', cssClass: 'regime-transitional' };
-  return { regime: 'Turbulent Flow', cssClass: 'regime-turbulent' };
-}
-
-function calculate() {
-  const resultBox = document.getElementById('result');
-  const workingBox = document.getElementById('workingBox');
-  const v = parseFloat(document.getElementById('velocity').value);
-  const D = parseFloat(document.getElementById('diameter').value);
-  const visc = parseFloat(document.getElementById('viscosity').value);
-
-  let rho, re, workingText;
-
-  if (mode === 'dynamic') {
-    rho = parseFloat(document.getElementById('density').value);
-    if (isNaN(rho) || isNaN(v) || isNaN(D) || isNaN(visc) || visc === 0) {
-      resultBox.className = 'show';
-      document.getElementById('reValue').textContent = 'Please fill in all fields with valid numbers.';
-      document.getElementById('regimeLabel').textContent = '';
-      workingBox.className = '';
-      return;
-    }
-    re = (rho * v * D) / visc;
-    workingText =
-      '<div class="step-label">Formula (dynamic viscosity form):</div>Re = (ρ × v × D) / μ\n\n' +
-      '<div class="step-label">Substituting values:</div>Re = (' + rho + ' × ' + v + ' × ' + D + ') / ' + visc + '\n\n' +
-      '<div class="step-label">Result:</div>Re = ' + re.toLocaleString(undefined, {maximumFractionDigits: 2});
-  } else {
-    if (isNaN(v) || isNaN(D) || isNaN(visc) || visc === 0) {
-      resultBox.className = 'show';
-      document.getElementById('reValue').textContent = 'Please fill in all fields with valid numbers.';
-      document.getElementById('regimeLabel').textContent = '';
-      workingBox.className = '';
-      return;
-    }
-    re = (v * D) / visc;
-    workingText =
-      '<div class="step-label">Formula (kinematic viscosity form):</div>Re = (v × D) / ν\n\n' +
-      '<div class="step-label">Substituting values:</div>Re = (' + v + ' × ' + D + ') / ' + visc + '\n\n' +
-      '<div class="step-label">Result:</div>Re = ' + re.toLocaleString(undefined, {maximumFractionDigits: 2});
-  }
-
-  const { regime, cssClass } = classify(re);
-  const reFormatted = re.toLocaleString(undefined, {maximumFractionDigits: 2});
-
-  document.getElementById('reValue').textContent = reFormatted;
-  document.getElementById('regimeLabel').textContent = regime;
-  resultBox.className = 'show ' + cssClass;
-
-  workingText += '\n\n<div class="step-label">Flow regime:</div>' + regime +
-    (re < 2300 ? ' (Re < 2300)' : re <= 4000 ? ' (2300 ≤ Re ≤ 4000)' : ' (Re > 4000)');
-  workingBox.innerHTML = workingText;
-  workingBox.className = 'show';
-
-  lastResult = 'Reynolds Number = ' + reFormatted + ' — ' + regime;
-}
-
-function loadExample(rho, v, D, mu) {
-  setMode('dynamic');
-  document.getElementById('density').value = rho;
-  document.getElementById('velocity').value = v;
-  document.getElementById('diameter').value = D;
-  document.getElementById('viscosity').value = mu;
-  calculate();
-  document.getElementById('calcCard').scrollIntoView({ behavior: 'smooth', block: 'start' });
-}
-
-function copyResult() {
-  if (!lastResult) return;
-  navigator.clipboard.writeText(lastResult).then(() => {
-    const btn = document.querySelector('.copy-btn');
-    const original = btn.textContent;
-    btn.textContent = '✓ Copied!';
-    setTimeout(() => { btn.textContent = original; }, 1500);
-  });
-}
-</script>
 
 </body>
 </html>

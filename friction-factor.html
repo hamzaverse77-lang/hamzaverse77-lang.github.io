@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://hamzaverse77-lang.github.io/friction-factor.html">
 <title>Friction Factor Calculator with Steps - Darcy-Weisbach Head Loss</title>
 <meta name="description" content="Free friction factor and head loss calculator using Darcy-Weisbach and Swamee-Jain equations, with full step-by-step working, solved examples, and FAQ.">
 <meta name="keywords" content="friction factor calculator, darcy weisbach calculator, head loss calculator, pipe friction calculator, swamee jain equation, chemical engineering calculator">
@@ -196,6 +197,14 @@
     color: var(--primary-dark);
   }
   details.faq p { margin: 10px 0 0 0; font-size: 0.92rem; }
+
+  article h3 { color: var(--primary-dark); font-size: 1rem; margin: 20px 0 6px 0; }
+  article ul { padding-left: 20px; margin: 8px 0; }
+  article li { margin-bottom: 8px; font-size: 0.95rem; }
+  .solution { background: #f8fafb; border-left: 3px solid var(--primary); padding: 10px 14px; margin-bottom: 14px; border-radius: 4px; }
+  .solution p { margin: 6px 0; font-size: 0.93rem; }
+  .tool-link { display: inline-block; background: var(--primary-dark); color: #fff; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-size: 0.85rem; font-weight: 600; margin-top: 8px; }
+  .tool-link:hover { background: var(--primary); }
 </style>
 </head>
 <body>
@@ -205,7 +214,8 @@
   <p>Darcy friction factor and pipe head loss, with full step-by-step working</p>
 </header>
 <nav class="site-nav">
-  <a href="index.html">Reynolds Calculator</a>
+  <a href="index.html">Home</a>
+  <a href="reynolds-number-calculator.html">Reynolds Calculator</a>
   <a href="friction-factor.html" class="active">Friction Factor Calculator</a>
   <a href="lmtd.html">LMTD Calculator</a>
   <a href="heat-exchanger-area.html">Heat Exchanger Area Calculator</a>
@@ -323,6 +333,66 @@
   </article>
 
   <article class="card">
+    <h2>Worked Solutions in Full</h2>
+    <p>Each example below is solved completely, using exactly the method the calculator uses: Reynolds number first, then the friction factor, then the Darcy-Weisbach equation.</p>
+    <h3>Example 1 — Water in commercial steel pipe (turbulent)</h3>
+    <div class="solution">
+      <p><strong>Given:</strong> ρ = 998 kg/m³, μ = 0.001 Pa·s, v = 2 m/s, D = 0.1 m, L = 50 m, ε = 0.045 mm</p>
+      <p><strong>Step 1 — Reynolds number:</strong> Re = 998 × 2 × 0.1 / 0.001 = 199,600. This is above 4,000, so the flow is turbulent.</p>
+      <p><strong>Step 2 — Relative roughness:</strong> ε / D = 0.000045 / 0.1 = 0.00045</p>
+      <p><strong>Step 3 — Swamee-Jain terms:</strong> ε/(3.7D) = 0.0001216 and 5.74 / Re<sup>0.9</sup> = 0.0000974, which add to 0.0002191</p>
+      <p><strong>Step 4 — Friction factor:</strong> log<sub>10</sub>(0.0002191) = -3.6594, so f = 0.25 / (-3.6594)² = 0.01867</p>
+      <p><strong>Step 5 — Velocity head:</strong> v² / 2g = 4 / 19.62 = 0.2039 m</p>
+      <p><strong>Step 6 — Head loss:</strong> h<sub>f</sub> = f × (L/D) × v²/2g = 0.01867 × (50/0.1) × 0.2039 = 1.903 m</p>
+      <p><strong>Step 7 — Convert to pressure drop:</strong> ΔP = ρ g h<sub>f</sub> = 998 × 9.81 × 1.903 = 18,631 Pa ≈ 18.6 kPa</p>
+      <p><strong>Answer:</strong> f ≈ 0.01867, head loss ≈ 1.90 m of water over 50 m of pipe.</p>
+    </div>
+    <h3>Example 2 — Oil in a small pipe (laminar)</h3>
+    <div class="solution">
+      <p><strong>Given:</strong> ρ = 900 kg/m³, μ = 0.05 Pa·s, v = 0.3 m/s, D = 0.02 m, L = 10 m</p>
+      <p><strong>Step 1 — Reynolds number:</strong> Re = 900 × 0.3 × 0.02 / 0.05 = 108. This is below 2,300, so the flow is laminar.</p>
+      <p><strong>Step 2 — Friction factor:</strong> For laminar flow f = 64 / Re = 64 / 108 = 0.5926. Roughness plays no part here.</p>
+      <p><strong>Step 3 — Velocity head:</strong> v² / 2g = 0.09 / 19.62 = 0.00459 m</p>
+      <p><strong>Step 4 — Head loss:</strong> h<sub>f</sub> = 0.5926 × (10/0.02) × 0.00459 = 1.359 m</p>
+      <p><strong>Answer:</strong> f ≈ 0.5926, head loss ≈ 1.36 m of oil.</p>
+    </div>
+    <h3>Example 3 — Reynolds number already known (cast iron)</h3>
+    <div class="solution">
+      <p><strong>Given:</strong> Re = 50,000, v = 1.5 m/s, D = 0.15 m, L = 100 m, ε = 0.15 mm</p>
+      <p><strong>Step 1 — Flow regime:</strong> Re = 50,000 is well above 4,000, so use the turbulent equation.</p>
+      <p><strong>Step 2 — Relative roughness:</strong> ε / D = 0.00015 / 0.15 = 0.0010</p>
+      <p><strong>Step 3 — Swamee-Jain terms:</strong> ε/(3.7D) = 0.0002703 and 5.74 / Re<sup>0.9</sup> = 0.0003387, which add to 0.0006090</p>
+      <p><strong>Step 4 — Friction factor:</strong> log<sub>10</sub>(0.0006090) = -3.2154, so f = 0.25 / (-3.2154)² = 0.02418</p>
+      <p><strong>Step 5 — Head loss:</strong> v² / 2g = 0.1147 m, so h<sub>f</sub> = 0.02418 × (100/0.15) × 0.1147 = 1.849 m</p>
+      <p><strong>Answer:</strong> f ≈ 0.02418, head loss ≈ 1.85 m.</p>
+    </div>
+
+  </article>
+
+  <article class="card">
+    <h2>Practical Notes and Common Mistakes</h2>
+    <p>Friction loss is normally the largest part of the head a pump has to develop in an industrial piping system. Adding it to the static head (and any pressure difference) gives the total head that feeds the <a href="pump-power.html">Pump Power Calculator</a>, and the suction-side portion feeds the <a href="npsh.html">NPSH Calculator</a>.</p>
+    <h3>Mistakes that give wrong answers</h3>
+    <ul>
+      <li><strong>Darcy versus Fanning.</strong> This page uses the Darcy friction factor. A Fanning factor is one quarter of it, so putting a Fanning value into the Darcy-Weisbach equation understates head loss by a factor of four.</li>
+      <li><strong>Roughness in the wrong unit.</strong> Roughness is quoted in millimetres but must be divided by the diameter in metres. The calculator handles the conversion; hand calculations often miss it.</li>
+      <li><strong>Forgetting fittings.</strong> The result is for straight pipe only. Valves, bends, entrances and exits add minor losses that must be added separately.</li>
+      <li><strong>Using a turbulent formula for laminar flow.</strong> Always check Re first, as the calculator does.</li>
+      <li><strong>Trusting values near Re 2,300–5,000.</strong> The Swamee-Jain equation is specified for Re from about 5,000 upward, and flow in the transitional zone is uncertain in real life. Treat results in that band as rough estimates.</li>
+    </ul>
+    <h3>Typical absolute roughness values</h3>
+    <table>
+      <tr><th>Pipe material</th><th>Roughness ε (mm)</th></tr>
+      <tr><td>Drawn tubing, glass, PVC</td><td>0.0015</td></tr>
+      <tr><td>Commercial steel, wrought iron</td><td>0.045</td></tr>
+      <tr><td>Galvanised iron</td><td>0.15</td></tr>
+      <tr><td>Cast iron</td><td>0.26</td></tr>
+      <tr><td>Concrete</td><td>0.3 – 3</td></tr>
+    </table>
+
+  </article>
+
+  <article class="card">
     <h2>Frequently Asked Questions</h2>
 
     <details class="faq">
@@ -348,7 +418,7 @@
 
   <article class="card">
     <h2>Related Tool</h2>
-    <p>Need the Reynolds number first? Use the <a href="index.html">Reynolds Number Calculator</a> — this tool picks up exactly where that one leaves off.</p>
+    <p>Need the Reynolds number first? Use the <a href="reynolds-number-calculator.html">Reynolds Number Calculator</a> — this tool picks up exactly where that one leaves off.</p>
   </article>
 
 </main>

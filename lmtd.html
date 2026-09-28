@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://hamzaverse77-lang.github.io/lmtd.html">
 <title>LMTD Calculator with Steps - Log Mean Temperature Difference & Solved Examples</title>
 <meta name="description" content="Free LMTD calculator with full step-by-step working for counter-current and co-current heat exchangers. Includes solved practice examples and FAQ on log mean temperature difference.">
 <meta name="keywords" content="lmtd calculator, lmtd calculator with steps, log mean temperature difference, counter current heat exchanger calculator, heat exchanger lmtd, chemical engineering calculator">
@@ -196,6 +197,14 @@
     color: var(--primary-dark);
   }
   details.faq p { margin: 10px 0 0 0; font-size: 0.92rem; }
+
+  article h3 { color: var(--primary-dark); font-size: 1rem; margin: 20px 0 6px 0; }
+  article ul { padding-left: 20px; margin: 8px 0; }
+  article li { margin-bottom: 8px; font-size: 0.95rem; }
+  .solution { background: #f8fafb; border-left: 3px solid var(--primary); padding: 10px 14px; margin-bottom: 14px; border-radius: 4px; }
+  .solution p { margin: 6px 0; font-size: 0.93rem; }
+  .tool-link { display: inline-block; background: var(--primary-dark); color: #fff; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-size: 0.85rem; font-weight: 600; margin-top: 8px; }
+  .tool-link:hover { background: var(--primary); }
 </style>
 </head>
 <body>
@@ -205,7 +214,8 @@
   <p>Log Mean Temperature Difference for heat exchangers, with full step-by-step working</p>
 </header>
 <nav class="site-nav">
-  <a href="index.html">Reynolds Calculator</a>
+  <a href="index.html">Home</a>
+  <a href="reynolds-number-calculator.html">Reynolds Calculator</a>
   <a href="friction-factor.html">Friction Factor Calculator</a>
   <a href="lmtd.html" class="active">LMTD Calculator</a>
   <a href="heat-exchanger-area.html">Heat Exchanger Area Calculator</a>
@@ -301,6 +311,62 @@
       <p>Steam condenses at a near-constant 120°C. Cooling water enters at 25°C and leaves at 60°C, counter-current arrangement. Find the LMTD.</p>
       <button class="try-btn" type="button" onclick="loadExample('counter',120,120,25,60)">Try This Example</button>
     </div>
+  </article>
+
+  <article class="card">
+    <h2>Worked Solutions in Full</h2>
+    <p>The three examples above, solved in full. Example 2 also shows why the arithmetic average of the two end temperature differences cannot be used.</p>
+    <h3>Example 1 — Counter-current</h3>
+    <div class="solution">
+      <p><strong>Given:</strong> Hot oil 150 → 90 °C, cold water 30 → 80 °C</p>
+      <p><strong>Step 1 — Pair the ends for counter-current flow:</strong> The hot inlet meets the cold outlet at one end, and the hot outlet meets the cold inlet at the other.</p>
+      <p><strong>Step 2 — ΔT₁:</strong> 150 − 80 = 70 °C</p>
+      <p><strong>Step 3 — ΔT₂:</strong> 90 − 30 = 60 °C</p>
+      <p><strong>Step 4 — Apply the formula:</strong> LMTD = (70 − 60) / ln(70/60) = 10 / 0.1542 = 64.87 °C</p>
+      <p><strong>Answer:</strong> LMTD ≈ 64.87 °C</p>
+    </div>
+    <h3>Example 2 — Same temperatures, co-current</h3>
+    <div class="solution">
+      <p><strong>Given:</strong> Hot oil 150 → 90 °C, cold water 30 → 80 °C, but now flowing in the same direction</p>
+      <p><strong>Step 1 — Pair the ends for co-current flow:</strong> Both inlets meet at one end, and both outlets meet at the other.</p>
+      <p><strong>Step 2 — ΔT₁:</strong> 150 − 30 = 120 °C</p>
+      <p><strong>Step 3 — ΔT₂:</strong> 90 − 80 = 10 °C</p>
+      <p><strong>Step 4 — Apply the formula:</strong> LMTD = (120 − 10) / ln(120/10) = 110 / 2.4849 = 44.27 °C</p>
+      <p><strong>Answer:</strong> LMTD ≈ 44.27 °C. Counter-current gave 64.87 °C from identical temperatures, so it needs less area for the same duty.</p>
+    </div>
+    <h3>Example 3 — Steam condenser</h3>
+    <div class="solution">
+      <p><strong>Given:</strong> Steam condensing at 120 °C, cooling water 25 → 60 °C, counter-current</p>
+      <p><strong>Step 1 — ΔT₁:</strong> 120 − 60 = 60 °C</p>
+      <p><strong>Step 2 — ΔT₂:</strong> 120 − 25 = 95 °C</p>
+      <p><strong>Step 3 — Apply the formula:</strong> LMTD = (60 − 95) / ln(60/95) = -35 / -0.4595 = 76.16 °C</p>
+      <p><strong>Answer:</strong> LMTD ≈ 76.16 °C. Because the steam temperature is constant, counter-current and co-current give the same result here.</p>
+    </div>
+    <h3>Why not just average the two temperature differences?</h3>
+    <table>
+      <tr><th>Case</th><th>Arithmetic mean</th><th>LMTD</th><th>Arithmetic mean too high by</th></tr>
+      <tr><td>Example 1 (ratio 1.17)</td><td>65.00 °C</td><td>64.87 °C</td><td>0.2%</td></tr>
+      <tr><td>Example 2 (ratio 12)</td><td>65.00 °C</td><td>44.27 °C</td><td>46.8%</td></tr>
+      <tr><td>Example 3 (ratio 1.58)</td><td>77.50 °C</td><td>76.16 °C</td><td>1.8%</td></tr>
+    </table>
+    <p>When the two end differences are close, the arithmetic mean is nearly right. When they differ a lot, as in Example 2, it overestimates the driving force badly, and an exchanger sized from it would be far too small.</p>
+
+  </article>
+
+  <article class="card">
+    <h2>Practical Notes and Common Mistakes</h2>
+    <p>LMTD is the driving-force term in the basic exchanger equation Q = U × A × LMTD. It is used for double-pipe and shell-and-tube exchangers, condensers, coolers and heaters. Once you have it, the <a href="heat-exchanger-area.html">Heat Exchanger Area Calculator</a> converts it into the surface area you need.</p>
+    <h3>Mistakes that give wrong answers</h3>
+    <ul>
+      <li><strong>Pairing the wrong ends.</strong> This is the most common error. Counter-current pairs hot-in with cold-out; co-current pairs hot-in with cold-in. Swapping them changes the answer.</li>
+      <li><strong>Ignoring the correction factor.</strong> For multi-pass shell-and-tube or cross-flow exchangers the true mean difference is F × LMTD, with F below 1.</li>
+      <li><strong>A temperature cross.</strong> If ΔT₁ or ΔT₂ is zero or negative, the setup is impossible for a single-pass exchanger, or a temperature has been entered in the wrong place.</li>
+      <li><strong>Mixed temperature scales.</strong> A temperature <em>difference</em> in °C equals the same difference in K, so either works, but do not mix °F with °C.</li>
+      <li><strong>Applying it when U varies strongly.</strong> LMTD assumes U is roughly constant along the exchanger. If it changes a lot, the exchanger should be split into zones.</li>
+    </ul>
+    <h3>Reading the result</h3>
+    <p>A larger LMTD means a stronger driving force and therefore a smaller, cheaper exchanger. A small LMTD (a close temperature approach) means a large exchanger, which is why very tight approach temperatures are expensive.</p>
+
   </article>
 
   <article class="card">
