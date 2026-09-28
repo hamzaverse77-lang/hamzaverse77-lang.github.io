@@ -252,7 +252,7 @@
     <button onclick="calculate()">Calculate Pump Power</button>
 
     <div id="result">
-      <div>Brake (Shaft) Power:</div>
+      <div>Brake (Shaft) Power — this is your motor sizing figure:</div>
       <div id="reValue">--</div>
       <div id="regimeLabel">--</div>
       <button class="copy-btn" onclick="copyResult()" type="button">📋 Copy Result</button>
@@ -266,7 +266,7 @@
     <p>Pump power is the rate of energy a pump must deliver to move a fluid against gravity (head) or pressure. There are two figures that matter:</p>
     <ul>
       <li><strong>Hydraulic power (Ph)</strong> — the actual work done on the fluid.</li>
-      <li><strong>Brake (shaft) power (Pb)</strong> — the mechanical power the motor must supply, always higher than hydraulic power because no pump is 100% efficient.</li>
+      <li><strong>Brake (shaft) power (Pb)</strong> — the mechanical power the motor must supply, always higher than hydraulic power because no pump is 100% efficient. <strong>This is the number to use when selecting a motor.</strong></li>
     </ul>
     <p><code>Pb = Ph / η</code></p>
 
